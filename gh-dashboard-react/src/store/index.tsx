@@ -38,11 +38,20 @@ const authSlice = createSlice({
     },
 });
 
+export const counterActions = counterSlice.actions;
+export const authActions = authSlice.actions;
+
 const store = configureStore({
     reducer: { counter: counterSlice.reducer, auth: authSlice.reducer },
 });
-
-export const counterActions = counterSlice.actions;
-export const authActions = authSlice.actions;
+export interface RootState {
+    counter: {
+        counter: number;
+        showCounter: boolean;
+    };
+    auth: {
+        isAuthenticated: boolean;
+    };
+}
 
 export default store;

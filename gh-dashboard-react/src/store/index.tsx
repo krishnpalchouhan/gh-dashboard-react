@@ -1,4 +1,6 @@
 import { createSlice, configureStore } from '@reduxjs/toolkit';
+import chartDataReducer from "./dataSlice";
+import { EntityState } from '@reduxjs/toolkit';
 
 const initialCounterState = { counter: 0, showCounter: true };
 
@@ -42,16 +44,18 @@ export const counterActions = counterSlice.actions;
 export const authActions = authSlice.actions;
 
 const store = configureStore({
-    reducer: { counter: counterSlice.reducer, auth: authSlice.reducer },
+    reducer: { counter: counterSlice.reducer, auth: authSlice.reducer,  charts: chartDataReducer, },
 });
 export interface RootState {
+    auth: {
+        isAuthenticated: boolean;
+    };
+    chartData: EntityState<any, any>;
     counter: {
         counter: number;
         showCounter: boolean;
     };
-    auth: {
-        isAuthenticated: boolean;
-    };
+
 }
 
 export default store;

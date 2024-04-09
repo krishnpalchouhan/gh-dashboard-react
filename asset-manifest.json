@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/gh-dashboard-react/static/css/main.38113e20.css",
-    "main.js": "/gh-dashboard-react/static/js/main.a4b1a2c6.js",
-    "static/js/453.70da263b.chunk.js": "/gh-dashboard-react/static/js/453.70da263b.chunk.js",
-    "index.html": "/gh-dashboard-react/index.html",
-    "main.38113e20.css.map": "/gh-dashboard-react/static/css/main.38113e20.css.map",
-    "main.a4b1a2c6.js.map": "/gh-dashboard-react/static/js/main.a4b1a2c6.js.map",
-    "453.70da263b.chunk.js.map": "/gh-dashboard-react/static/js/453.70da263b.chunk.js.map"
+    "main.css": "/static/css/main.89f1a0f0.css",
+    "main.js": "/static/js/main.51c34aed.js",
+    "static/js/453.90a61959.chunk.js": "/static/js/453.90a61959.chunk.js",
+    "index.html": "/index.html",
+    "main.89f1a0f0.css.map": "/static/css/main.89f1a0f0.css.map",
+    "main.51c34aed.js.map": "/static/js/main.51c34aed.js.map",
+    "453.90a61959.chunk.js.map": "/static/js/453.90a61959.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.38113e20.css",
-    "static/js/main.a4b1a2c6.js"
+    "static/css/main.89f1a0f0.css",
+    "static/js/main.51c34aed.js"
   ]
 }

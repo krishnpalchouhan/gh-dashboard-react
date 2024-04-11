@@ -5,8 +5,9 @@ import React, { useEffect } from "react";
 import classes from "./Charts.module.css"
 import Chart from "chart.js/auto"; // Ensure you're importing 'auto' bundle for Chart.js 4.x
 import 'chartjs-adapter-date-fns';
+import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "../card";
 
-const LineChartComponent = ({ location, width = '30rem' }) => {
+const LineChartComponent = ({ location, width = 30 }) => {
     const dispatch = useDispatch();
     const charts = useSelector(state => selectChart(state, location));
     // Fetch charts data or perform any necessary initializations
@@ -16,11 +17,22 @@ const LineChartComponent = ({ location, width = '30rem' }) => {
 
 
     return (
-        <main className={classes.charts}  style={{width: width}}>
-            <div>
-                {charts && <Line data={ charts } />}
-            </div>
-        </main>
+
+            <Card style={{width: `{width}rem`}} className="shadow shadow-md">
+                <CardHeader>
+
+                    <CardTitle>Card Title {width}rem</CardTitle>
+                    <CardDescription>Card Description</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <div>
+                        {charts && <Line redraw={true} style={{width: `{width-2}rem`}} data={charts}/>}
+                    </div>
+                </CardContent>
+                <CardFooter>
+                    <p>Card Footer</p>
+                </CardFooter>
+            </Card>
     );
 };
 

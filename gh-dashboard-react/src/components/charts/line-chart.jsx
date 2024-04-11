@@ -6,7 +6,7 @@ import classes from "./Charts.module.css"
 import Chart from "chart.js/auto"; // Ensure you're importing 'auto' bundle for Chart.js 4.x
 import 'chartjs-adapter-date-fns';
 
-const LineChartComponent = ({ location }) => {
+const LineChartComponent = ({ location, width = '30rem' }) => {
     const dispatch = useDispatch();
     const charts = useSelector(state => selectChart(state, location));
     // Fetch charts data or perform any necessary initializations
@@ -16,10 +16,10 @@ const LineChartComponent = ({ location }) => {
 
 
     return (
-        <main className={classes.charts}>
-        <div>
-            {charts && <Line data={ charts } />}
-        </div>
+        <main className={classes.charts}  style={{width: width}}>
+            <div>
+                {charts && <Line data={ charts } />}
+            </div>
         </main>
     );
 };

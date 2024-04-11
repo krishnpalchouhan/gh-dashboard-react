@@ -1,9 +1,8 @@
 .charts {
-  margin: 2rem auto;
+  margin: 2px auto;
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
-  width: 60rem;
   border-radius: 8px;
-  padding: 1rem;
+  padding: 10px;
   text-align: center;
   background-color: #f4f0fa;
 }
@@ -18,10 +17,10 @@
 .value {
   font-size: 2rem;
   color: #3c0080;
-  margin: 2rem 0;
+  margin: 1px 0;
   font-weight: bold;
 }
 
 .charts button {
-  margin: 1rem;
+  margin: 1px;
 }

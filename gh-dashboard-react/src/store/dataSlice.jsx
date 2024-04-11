@@ -51,7 +51,6 @@ export const {
 
 export const selectChart = (state, chartId) => selectChartById(state, chartId);
 
-// Define async thunk for fetching data
 export const fetchData = createAsyncThunk(
     'data/fetchData',
     async (location, thunkAPI) => {
@@ -73,7 +72,7 @@ export const fetchData = createAsyncThunk(
             return await response.json().then(data => {
                 data.forEach(dataObj => {
                     resultChart.datasets[0].data.push(dataObj['warning_count']);
-                    resultChart.labels.push(dataObj['date'].replace('UTC 2024',''));
+                    resultChart.labels.push(dataObj['date']);
                 });
                 thunkAPI.dispatch(chartAdded(resultChart));
                 return resultChart;

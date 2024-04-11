@@ -1,10 +1,10 @@
 
-import {useDispatch, useSelector} from "react-redux";
-import {authActions, RootState} from "../store";
+// import {useDispatch, useSelector} from "react-redux";
+// import {authActions, RootState} from "../store";
 
 const Header = () => {
-    const isAuth = useSelector((state: RootState) => state.auth.isAuthenticated);
-    const dispatch = useDispatch();
+    // const isAuth = useSelector((state: RootState) => state.auth.isAuthenticated);
+    // const dispatch = useDispatch();
     // const logoutHandler = (event: any) => {
     //     event.preventDefault();
     //     dispatch(authActions.logout());
@@ -16,7 +16,7 @@ const Header = () => {
                         <div className="flex space-x-7">
                             <div>
                                 <a href="#" className="flex items-center py-4 px-2 ">
-                                    <img src="logo.png" alt="Warning Dashboard" className="h-12 w-100 mr-2"/>
+                                    {/*<img src="./gh-dashboard-react/public/logo.png" alt="Warning Dashboard" className="h-12 w-100 mr-2"/>*/}
                                 </a>
                             </div>
                             <div className="hidden md:flex items-center space-x-1">

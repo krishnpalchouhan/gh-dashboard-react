@@ -4,9 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchData, selectChart} from "../../store/dataSlice";
 import React, { useEffect } from "react";
 import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "../card";
-import {Button} from "../button";
+import TabsDemo from "../Tabs";
+import {DataTable} from "../data-table";
 
-export const ApexLineChart = ({ location, width = 30 }) => {
+export const GridListChart = ({ location, width = 30 }) => {
     const support = {
         lineRange: 6,
         range:{
@@ -26,14 +27,30 @@ export const ApexLineChart = ({ location, width = 30 }) => {
 
         <Card style={{width: `{width}rem`}} className="shadow-md">
             <CardHeader>
-
                 <CardTitle>{tittle} </CardTitle>
                 <CardDescription>--------------</CardDescription>
             </CardHeader>
             <CardContent>
-                <div>
-                    {data && <ApexCharts data={data} support={support}/>}
-                </div>
+                <TabsDemo
+                    tabs={[
+                        {
+                            name: 'GridView',
+                            children: (
+                                <>
+                                    {data && <ApexCharts data={data} support={support}/>}
+                                </>
+                            ),
+                        },
+                        {
+                            name: 'ListView',
+                            children: (
+                                <>
+                                {data && <DataTable gridData={data.gridData}/>}
+                                </>
+                            ),
+                        },
+                    ]}
+                />
             </CardContent>
             <CardFooter>
 

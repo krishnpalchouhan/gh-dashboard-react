@@ -36,26 +36,26 @@ import {
     TableRow,
 } from "./table"
 
-const data: WarningsData[] = [
-    {
-        "warning_count": 6,
-        "build_duration": 0,
-        "date": "Tue Mar 19 10:54:27 UTC 2024",
-        "commit_id": "dd7240c1"
-    },
-    {
-        "warning_count": 6,
-        "build_duration": 0,
-        "date": "Tue Mar 19 14:16:43 UTC 2024",
-        "commit_id": "642ea5e3"
-    },
-    {
-        "warning_count": 6,
-        "build_duration": 0,
-        "date": "Tue Mar 19 16:32:35 UTC 2024",
-        "commit_id": "62a45eac"
-    }
-]
+// const gridData: WarningsData[] = [
+//     {
+//         "warning_count": 6,
+//         "build_duration": 0,
+//         "date": "Tue Mar 19 10:54:27 UTC 2024",
+//         "commit_id": "dd7240c1"
+//     },
+//     {
+//         "warning_count": 6,
+//         "build_duration": 0,
+//         "date": "Tue Mar 19 14:16:43 UTC 2024",
+//         "commit_id": "642ea5e3"
+//     },
+//     {
+//         "warning_count": 6,
+//         "build_duration": 0,
+//         "date": "Tue Mar 19 16:32:35 UTC 2024",
+//         "commit_id": "62a45eac"
+//     }
+// ]
 
 export type WarningsData = {
     commit_id: string
@@ -158,19 +158,20 @@ export const columns: ColumnDef<WarningsData>[] = [
             )
         },
     },
+
 ]
 
-export function DataTableDemo() {
+export const DataTable = ({ gridData }: { gridData: WarningsData[] }) => {
     const [sorting, setSorting] = React.useState<SortingState>([])
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-        []
+         []
     )
     const [columnVisibility, setColumnVisibility] =
         React.useState<VisibilityState>({})
     const [rowSelection, setRowSelection] = React.useState({})
 
     const table = useReactTable({
-        data,
+        data: gridData,
         columns,
         onSortingChange: setSorting,
         onColumnFiltersChange: setColumnFilters,

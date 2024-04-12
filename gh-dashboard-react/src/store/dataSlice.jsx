@@ -63,7 +63,7 @@ export const fetchData = createAsyncThunk(
         }
         try {
             const response = await fetch(`/gh-dashboard-react/data/${location}`);
-            // get data from json response and run the loop and then push the data to the resultChart object and return the resultChart
+            // await new Promise(resolve => setTimeout(resolve, 500));
             return await response.json().then(data => {
                 data.forEach(dataObj => {
                     resultChart.datasets[0].data.push(dataObj['warning_count']);

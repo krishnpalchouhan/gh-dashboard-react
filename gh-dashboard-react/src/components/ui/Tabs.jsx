@@ -5,12 +5,12 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-export default function TabsDemo({ tabs }) {
+export default function KTabs({ tabs, tittle='' }) {
 
     return (
             <Tab.Group>
                 <div className="flex px-4 py-2">
-                    <h1 className="text-xl font-bold">Inbox</h1>
+                    <h1 className="text-xl font-bold">{tittle.toString().toUpperCase().replace('-',' ')}</h1>
                     <Tab.List className="inline-flex h-9 items-center justify-center rounded-lg bg-muted p-1 text-muted-foreground ml-auto"
                               data-orientation="horizontal" style={{outline: 'none'}}
                     >

@@ -5,7 +5,7 @@ import React, { useEffect } from "react";
 import classes from "./Charts.module.css"
 import Chart from "chart.js/auto"; // Ensure you're importing 'auto' bundle for Chart.js 4.x
 import 'chartjs-adapter-date-fns';
-import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "../card";
+import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "../ui/card";
 
 const LineChartComponent = ({ location, width = 30 }) => {
     const dispatch = useDispatch();

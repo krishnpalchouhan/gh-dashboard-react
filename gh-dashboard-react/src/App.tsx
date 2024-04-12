@@ -4,7 +4,7 @@ import Header from './components/Header';
 import './App.css';
 import {GridListChart} from "./components/charts/grid-list-card";
 import {DataTable} from "./components/data-table";
-import TabsDemo from "./components/Tabs";
+import KTabs from "./components/ui/Tabs";
 
 function App() {
     return (

@@ -15,8 +15,8 @@ import {
 } from "@tanstack/react-table"
 import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react"
 
-import { Button } from "./button"
-import { Checkbox } from "./checkbox"
+import { Button } from "./ui/button"
+import { Checkbox } from "./ui/checkbox"
 import {
     DropdownMenu,
     DropdownMenuCheckboxItem,
@@ -26,7 +26,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "./dropdown-menu"
-import { Input } from "./input"
+import { Input } from "./ui/input"
 import {
     Table,
     TableBody,
@@ -34,7 +34,7 @@ import {
     TableHead,
     TableHeader,
     TableRow,
-} from "./table"
+} from "./ui/table"
 
 // const gridData: WarningsData[] = [
 //     {

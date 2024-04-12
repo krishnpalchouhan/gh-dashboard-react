@@ -18,15 +18,14 @@ const LineChartComponent = ({ location, width = 30 }) => {
 
     return (
 
-            <Card style={{width: `{width}rem`}} className="shadow shadow-md">
+            <Card style={{width: `${width}rem`}} className="shadow shadow-md">
                 <CardHeader>
-
-                    <CardTitle>Card Title {width}rem</CardTitle>
+                    <CardTitle>Card Title</CardTitle>
                     <CardDescription>Card Description</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <div>
-                        {charts && <Line redraw={true} style={{width: `{width-2}rem`}} data={charts}/>}
+                        {charts && <Line style={{width: '55rem', height: '50rem'}} data={charts}/>}
                     </div>
                 </CardContent>
                 <CardFooter>

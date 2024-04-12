@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchData, selectChart} from "../../store/dataSlice";
 import React, { useEffect } from "react";
 import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "../card";
+import {Button} from "../button";
 
 export const ApexLineChart = ({ location, width = 30 }) => {
     const support = {
@@ -35,7 +36,7 @@ export const ApexLineChart = ({ location, width = 30 }) => {
                 </div>
             </CardContent>
             <CardFooter>
-                <p>-----------</p>
+
             </CardFooter>
         </Card>
     );

@@ -4,7 +4,6 @@ export class ApexCharts extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
             series: [{
                 data: props.data.datasets[0].data
             }],
@@ -24,7 +23,7 @@ export class ApexCharts extends Component {
                                 color: '#fff',
                                 background: '#00E396',
                             },
-                            text: 'Max allowed',
+                            text: 'Max allowed warning count',
                         }
                     },
                     //     {
@@ -107,7 +106,12 @@ export class ApexCharts extends Component {
                     // }]
                 },
                 dataLabels: {
-                    enabled: false
+                    enabled: true,
+                    position: 'bottom',
+                    offsetX: 90
+                },
+                markers: {
+                    size: 0,
                 },
                 stroke: {
                     curve: 'straight'
@@ -119,13 +123,22 @@ export class ApexCharts extends Component {
                     }
                 },
                 title: {
-                    text: 'Line with Annotations',
+                    text: 'Build warning count',
                     align: 'left'
                 },
                 labels: props.data.labels,
                 xaxis: {
                     type: 'datetime',
                 },
+                yaxis: {
+                    tickAmount: 3,
+                    logarithmic: false,
+                    labels: {
+                        formatter: function(val) {
+                            return val.toFixed(0)
+                        }
+                    },
+                }
             },
 
 

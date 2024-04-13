@@ -11,8 +11,8 @@ function App() {
         <Fragment>
             <Header/>
             <div className="py-14">
-                <div className="p-1 mx-8">
-                    <div className="grid  grid-cols-2  gap-1 gap-y-1 grid-flow-row grid-">
+                <div className="p-1 mx-4">
+                    <div className="grid md:shrink-0 xl:grid-cols-2 lg:grid-col-1  gap-1 gap-y-1  -">
                         <div className="p-1 text-center bg-white">
                             <GridListChart width={57} location={'repo1-name.json'}/>
                         </div>

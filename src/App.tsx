@@ -1,33 +1,47 @@
 import React from 'react';
-import { Fragment } from 'react';
+import {Fragment} from 'react';
 import Header from './components/Header';
 import './App.css';
-import {useSelector} from "react-redux";
-import {RootState} from "./store";
-import LineChartComponent from "./components/charts/line-chart";
+import {GridListChart} from "./components/charts/grid-list-card";
+import { repoList } from './repoList.const';
+import {MyModal} from "./components/ui/Dialog";
+import {Card} from "./components/ui/card";
 function App() {
-    const isAuth = useSelector((state: RootState) => state.auth.isAuthenticated);
-  return (
-      <Fragment>
-          <div className="max-h-svh">
-              <div
-                  className="absolute -bottom-12 -top-20 left-0 right-1/2 z-10 rounded-br-6xl bg-blue-600 text-white/10 md:bottom-8 lg:-inset-y-32 lg:left-[-100vw] lg:right-full lg:-mr-40">
-                  <svg aria-hidden="true" className="absolute inset-0 h-full w-full">
-                      <defs>
-                          <pattern id=":S1:" width="128" height="128" patternUnits="userSpaceOnUse" x="100%" y="100%"
-                                   patternTransform="translate(112 64)">
-                              <path d="M0 128V.5H128" fill="none" stroke="currentColor"></path>
-                          </pattern>
-                      </defs>
-                      <rect width="100%" height="100%" fill="url(#:S1:)"></rect>
-                  </svg>
-              </div>
-          </div>
-          <Header/>
-          <LineChartComponent location={'repo1-name.json'}/>
-          <LineChartComponent location={'repo2-name.json'}/>
-      </Fragment>
-  );
+    return (
+        <Fragment>
+            <Header/>
+            <div className="py-14">
+                <div className="p-1 mx-4">
+                    <div className="grid md:shrink-0 xl:grid-cols-2 lg:grid-col-1  gap-1 gap-y-1  -">
+                        {repoList.map((repo, index) => (
+                            <div key={index} className="p-1 text-center bg-white">
+                                <Card style={{width: `{width}rem`}} className="shadow-xl rounded-[2px] ">
+                                    <>
+                                        <div className="grid grid-cols-2 overflow-col pt-2 pr-2">
+                                            <div></div>
+                                            <div className="place-self-end">
+                                                <MyModal>
+                                                    <GridListChart width={57} location={`${repo.Repo_name}.json`}
+                                                                   tittle={repo.Display_name}
+                                                                   key={repo.Repo_name} lineRange={repo.max}/>
+                                                </MyModal>
+                                            </div>
+                                        </div>
+                                        <GridListChart width={57} location={`${repo.Repo_name}.json`}
+                                                       tittle={repo.Display_name}
+                                                       key={repo.Repo_name} lineRange={repo.max}/>
+                                    </>
+
+
+                                </Card>
+                            </div>)
+                        )}
+                    </div>
+                </div>
+
+            </div>
+        </Fragment>
+    );
 }
 
 export default App;

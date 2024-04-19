@@ -1,0 +1,101 @@
+name: Build App
+
+run-name: Build ${{ inputs.appName }}
+on:
+  push:
+    branches:
+      - develop
+      - release/*
+      - cherry/**
+#  workflow_dispatch:
+#    inputs:
+#      appName:
+#        type: string
+#        description: Select App
+#        default: ods-ps-ui
+#        required: true
+#      deployDevelop:
+#        type: boolean
+#        description: Deploy develop on devint env
+#        default: false
+#      deployFeature:
+#        type: boolean
+#        description: Deploy from branch
+#        default: false
+#  workflow_call:
+#    inputs:
+#      appName:
+#        type: string
+#      deployDevelop:
+#        type: boolean
+#        description: Deploy develop on devint env
+#        default: false
+#      deployFeature:
+#        type: boolean
+#        description: Deploy from branch
+#        default: false
+#    secrets:
+#      checkout-token:
+#        required: true
+#      gh-pat:
+#        required: true
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    outputs:
+      commit_id: ${{ steps.commit_step.outputs.commit_id }}
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: Roche-DIA-RIS-CCO/devops-shared-workflows/.github/actions/node/v1@develop
+        with:
+          jfrog_token: ${{ secrets.JFROG_ARTIFACTORY_TOKEN }}
+          npmrc: ${{ secrets.NPMTEST }}
+
+      - run: npm install --fetch-retries=0 --legacy-peer-deps
+      - run: npm run build:${{ inputs.appName }} 2>&1| tee warning.text
+      - run: npm run postbuild
+      - name: Count Warnings and Build Duration
+        uses: Roche-DIA-RIS-CCO/ods-ps-webapp/.github/actions@develop
+#        uses: Roche-DIA-RIS-CCO/devops-shared-workflows/.github/actions/GitHub_JSON_Build_Metrics_Updater@develop
+        with:
+          my_pat: ${{ secrets.MY_PAT }}
+          repo_owner: Roche-DIA-RIS-CCO
+          repo_name: cco-build-watch-tower
+          branch_name: gh-pages
+          file_path: assets/data
+          file_name: ods-ps-webapp.json
+          max_entries: 300
+
+      - name: Prepare zip and publish artefact
+        uses: Roche-DIA-RIS-CCO/devops-shared-workflows/.github/actions/fe/zip-and-publish-artefact/v1@develop
+        with:
+          app_name: ${{ inputs.appName }}
+          jfrog_location: '/ods/ps'
+          dist_location: 'dist/'
+          jfrog_username: ${{ secrets.JFROG_USERNAME }}
+          jfrog_password: ${{ secrets.JFROG_PASSWORD }}
+
+      - name: Build Commit Id
+        id: commit_step
+        run: |
+          commitId=$(git rev-parse --short "$GITHUB_SHA")
+          echo "commitId = ${commitId}"
+          echo "commit_id=${commitId}" >> $GITHUB_OUTPUT
+
+  deploy-apps-develop:
+    name: Deploy develop on devint
+    needs: build
+    uses: Roche-DIA-RIS-CCO/ods-ps-webapp/.github/workflows/deploy-app.yml@develop
+    with:
+      service_name: ${{ inputs.appName }}
+      commit_sha: ${{ github.sha }}
+      stack_name: devint
+    secrets: inherit
+    if: ${{ inputs.deployDevelop == true }}

@@ -1,0 +1,75 @@
+# ********************************************************************************
+# Action to Count Warnings and update JSON file
+# This is also example of getting the file from the repo, updating it and pushing it back to the repo
+# ********************************************************************************
+
+name: Count Warnings and Build Duration
+description: Count Warnings and Build Duration
+
+
+inputs:
+  my_pat:
+    description: 'Personal Access Token'
+    required: true
+  repo_owner:
+    description: 'Repository owner'
+    required: true
+  repo_name:
+    description: 'Repository name'
+    required: true
+  branch_name:
+    description: 'Branch name'
+    required: true
+  file_path:
+    description: 'Path to the file'
+    required: true
+  file_name:
+    description: 'File name'
+    required: true
+  max_entries:
+    description: 'Number of entries to keep'
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Count Warnings and Build Duration
+      run: |
+        echo "Counting Warnings and Build Duration"
+        warning_count=$(grep -o "Warning:" warning.text | wc -l)
+        build_duration=$(echo $SECONDS)
+        date=$(date)
+        commitId=$(git rev-parse --short "$GITHUB_SHA")
+        new_entry="{\"warning_count\": $warning_count, \"build_duration\": $build_duration, \"date\": \"$date\", \"commit_id\": \"$commitId\"}"
+        # Print the new_entry
+        echo "new_entry: $new_entry"
+        # Fetch the existing JSON array from the URL
+        json_array=$(curl -s -H "Authorization: token ${{ inputs.my_pat }}" \
+        -H "Accept: application/vnd.github.v3.raw" \
+        https://raw.githubusercontent.com/${{ inputs.repo_owner }}/${{ inputs.repo_name }}/gh-pages/${{ inputs.file_path }}/${{ inputs.file_name }})
+        # Append the new entry to the existing JSON array
+        updated_json=$(echo $json_array | jq ". += [$new_entry]")
+        limited_json=$(echo $updated_json | jq -j '.[-${{ inputs.max_entries }}:]')
+        # Print the limited_json
+        echo "limited_json: $limited_json"
+        # Convert JSON to base64
+        content_base64=$(echo $limited_json | base64 -w 0)
+        # Print the base64 encoded JSON
+        echo "content_base64: $content_base64"
+        # Get the SHA of the file to be updated
+        sha=$(curl -s -H "Authorization: token ${{ inputs.my_pat }}" \
+        https://api.github.com/repos/${{ inputs.repo_owner }}/${{ inputs.repo_name }}/contents/${{ inputs.file_path }}/${{ inputs.file_name }}?ref=gh-pages | jq -r '.sha')
+        # Update the file using GitHub API
+        curl -X PUT -H "Authorization: token ${{ inputs.my_pat }}" \
+        -d '{
+        "message": "update ${{ inputs.file_name }}",
+        "committer": {
+        "name": "github-actions",
+        "email": "github-actions@github.com"
+        },
+        "content": "'"$content_base64"'",
+        "sha": "'"$sha"'",
+        "branch": "gh-pages"
+        }' \
+        https://api.github.com/repos/${{ inputs.repo_owner }}/${{ inputs.repo_name }}/contents/${{ inputs.file_path }}/${{ inputs.file_name }}
+      shell: bash
